@@ -1,0 +1,74 @@
+<h1 mat-dialog-title>Add Employee</h1>
+<div mat-dialog-content>
+    <form [formGroup]="addEmployeeForm" (ngSubmit)="addEmployee()">
+        <mat-form-field appearance="outline">
+            <mat-label>Full Name</mat-label>
+            <input matInput placeholder="Please enter your full name..." formControlName="fullName">
+            <mat-error *ngIf="addEmployeeForm.controls['fullName'].errors?.required"> Name is required </mat-error>
+            <mat-error *ngIf="addEmployeeForm.controls['fullName'].errors?.minlength"> Name must be atleast 3 letters long </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput placeholder="fullname@cbsnews.co" formControlName="email">
+            <mat-icon matSuffix>mail</mat-icon>
+            <mat-hint>fullname@cbsnews.co</mat-hint>
+            <mat-error *ngIf="addEmployeeForm.controls['email'].errors?.required">Email is required</mat-error>
+            <mat-error *ngIf="addEmployeeForm.controls['email'].errors?.email">Incorrect Email</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Date of Birth</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dob" [max]="minDate" readonly>
+            <mat-hint>MM/DD/YYYY. Age should be greater 18 years...</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="addEmployeeForm.controls['dob'].errors?.required">Date of Brirth is required</mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+            <mat-label>Phone</mat-label>
+            <input type="tel" matInput placeholder="555-123-4567" formControlName="phone">
+            <mat-icon matSuffix>phone</mat-icon>
+            <mat-error *ngIf="addEmployeeForm.controls['phone'].errors?.required">Phone number is requied</mat-error>
+            <mat-error *ngIf="(addEmployeeForm.controls['phone'].errors?.pattern || addEmployeeForm.controls['phone'].errors?.minlength)">Invalid Phone number</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Gender</mat-label>
+            <mat-select name="gender" formControlName="gender">
+                <mat-option *ngFor="let gen of genderList" [value]="gen.genderFlag">
+                    {{gen.genderName}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="addEmployeeForm.controls['gender'].errors?.required">Gender is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Company</mat-label>
+            <input matInput placeholder="Please enter your company..." formControlName="company">
+            <mat-icon matSuffix>work</mat-icon>
+            <mat-error *ngIf="addEmployeeForm.controls['company'].errors?.required">Company is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Position</mat-label>
+            <input matInput placeholder="Please enter your designation..." formControlName="position">
+            <mat-error *ngIf="addEmployeeForm.controls['position'].errors?.required">Position is required</mat-error>
+        </mat-form-field>
+
+        <div mat-dialog-action class="submit-btn">
+            <button mat-stroked-button color="warn" type="reset" (click)="onClose()">Cancel</button>
+            <button mat-raised-button color="primary" type="submit"
+                [disabled]="!this.addEmployeeForm.valid">{{btnText}}</button>
+        </div>
+
+    </form>
+
+
+
+
+
+
+</div>

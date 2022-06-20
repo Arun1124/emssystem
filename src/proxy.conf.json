@@ -1,0 +1,7 @@
+{
+    "/api/*": {
+        "target": "https://retoolapi.dev",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}
